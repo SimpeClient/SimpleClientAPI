@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'xyz.jpenilla.run-paper' version '2.1.0'
     id 'com.github.breadmoirai.github-release' version '2.4.1'
+    id 'maven-publish'
 }
 
 group = 'simpleclient-api'
@@ -50,4 +51,22 @@ githubRelease {
     dryRun false
     apiEndpoint 'https://api.github.com'
     client
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = 'https://maven.pkg.github.com/SimpleClientDevelopment/SimpleClientAPI'
+            credentials {
+                username = 'FabiPunktExe'
+                password = System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from components.java
+        }
+    }
 }
