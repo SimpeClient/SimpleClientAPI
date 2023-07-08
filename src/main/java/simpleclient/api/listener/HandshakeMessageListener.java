@@ -1,5 +1,7 @@
 package simpleclient.api.listener;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
@@ -13,21 +15,19 @@ public class HandshakeMessageListener implements PluginMessageListener {
             String clientVersion = new String(message);
             if (compareVersions(SimpleClientAPI.MIN_SUPPORTED_VERSION, clientVersion)) {
                 SimpleClientAPI.getSimpleClientPlayers().add(player);
-                byte[] data = new byte[] {(byte) (SimpleClientAPI.isLegacyPvPEnabled() ? 0 : 1)};
-                player.sendPluginMessage(SimpleClientAPIMain.getPlugin(), "simpleclient:legacypvp", data);
             }
         }
     }
 
     private boolean compareVersions(String serverVersionName, String clientVersionName) {
-        String[] serverVersion = serverVersionName.split(".");
-        String[] clientVersion = clientVersionName.split(".");
-        for (int i = 0, j = Math.min(serverVersion.length, clientVersion.length); i <= j; i++) {
+        String[] serverVersion = serverVersionName.split("\\.");
+        String[] clientVersion = clientVersionName.split("\\.");
+        for (int i = 0, j = Math.min(serverVersion.length, clientVersion.length); i < j; i++) {
             int serverVersionPart = Integer.parseInt(serverVersion[i]);
             int clientVersionPart = Integer.parseInt(clientVersion[i]);
             if (clientVersionPart > serverVersionPart) return true;
             if (clientVersionPart < serverVersionPart) return false;
         }
-        return clientVersion.length > serverVersion.length;
+        return clientVersion.length >= serverVersion.length;
     }
 }

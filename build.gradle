@@ -1,10 +1,11 @@
 plugins {
     id 'java'
     id 'xyz.jpenilla.run-paper' version '2.1.0'
+    id 'com.github.breadmoirai.github-release' version '2.4.1'
 }
 
 group = 'simpleclient-api'
-version = '0.0.1-dev'
+version = '0.0.2'
 
 repositories {
     mavenCentral()
@@ -30,4 +31,23 @@ tasks {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.release.set 17
+}
+
+githubRelease {
+    token System.getenv('GITHUB_TOKEN') == null ? '' : System.getenv('GITHUB_TOKEN')
+    owner 'SimpleClientDevelopment'
+    repo 'SimpleClientAPI'
+    tagName version
+    targetCommitish 'main'
+    releaseName version
+    generateReleaseNotes false
+    body file('changelog.md').text.replace('%version%', version)
+    draft false
+    prerelease version.startsWith('0') || version.endsWith('-snapshot') || version.endsWith('-alpha') || version.endsWith('-beta') || version.endsWith('-dev')
+    releaseAssets files("build/libs/${archivesBaseName}-${version}.jar")
+    allowUploadToExisting.set false
+    overwrite true
+    dryRun false
+    apiEndpoint 'https://api.github.com'
+    client
 }

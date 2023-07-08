@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import simpleclient.api.network.NetworkHelper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,18 +38,12 @@ public class SimpleClientAPI {
 
     public static void setLegacyPvPEnabled(boolean enabled) {
         legacyPvPEnabled = enabled;
-        Plugin plugin = SimpleClientAPIMain.getPlugin();
         if (!enabled) {
             blockingPlayers.removeIf(blocker -> {
-                ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                out.writeByte(3);
-                out.writeUTF(blocker.getUniqueId().toString());
-                byte[] data = out.toByteArray();
-                simpleClientPlayers.forEach(p -> p.sendPluginMessage(plugin, "simpleclient:legacypvp", data));
+                simpleClientPlayers.forEach(p -> NetworkHelper.sendBlockingPlayer(p, blocker, false));
                 return true;
             });
         }
-        byte[] data = new byte[] {(byte) (enabled ? 0 : 1)};
-        Bukkit.getOnlinePlayers().forEach(p -> p.sendPluginMessage(plugin, "simpleclient:legacypvp", data));
+        simpleClientPlayers.forEach(p -> NetworkHelper.sendLegacyPvPEnabled(p, enabled));
     }
 }

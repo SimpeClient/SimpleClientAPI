@@ -1,7 +1,6 @@
 package simpleclient.api.listener;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,25 +9,25 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import simpleclient.api.SimpleClientAPI;
 import simpleclient.api.SimpleClientAPIMain;
+import simpleclient.api.network.NetworkHelper;
 
 public class ConnectionListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        for (Player blocker : SimpleClientAPI.getBlockingPlayers()) {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeByte(2);
-            out.writeUTF(blocker.getUniqueId().toString());
-            byte[] data = out.toByteArray();
-            p.sendPluginMessage(SimpleClientAPIMain.getPlugin(), "simpleclient:legacypvp", data);
-        }
+        Bukkit.getScheduler().runTaskLater(SimpleClientAPIMain.getPlugin(), () -> {
+            if (SimpleClientAPI.isUsingSimpleClient(p)) {
+                NetworkHelper.sendLegacyPvPEnabled(p, SimpleClientAPI.isLegacyPvPEnabled());
+                NetworkHelper.sendBlockingPlayers(p);
+            }
+        }, 20);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (SimpleClientAPI.isUsingSimpleClient(p)) {
-            p.sendPluginMessage(SimpleClientAPIMain.getPlugin(), "simpleclient:legacypvp", new byte[] {1});
+            NetworkHelper.sendLegacyPvPEnabled(p, false);
             SimpleClientAPI.getSimpleClientPlayers().remove(p);
         }
     }
@@ -37,7 +36,7 @@ public class ConnectionListener implements Listener {
     public void onKick(PlayerKickEvent e) {
         Player p = e.getPlayer();
         if (SimpleClientAPI.isUsingSimpleClient(p)) {
-            p.sendPluginMessage(SimpleClientAPIMain.getPlugin(), "simpleclient:legacypvp", new byte[] {1});
+            NetworkHelper.sendLegacyPvPEnabled(p, false);
             SimpleClientAPI.getSimpleClientPlayers().remove(p);
         }
     }
