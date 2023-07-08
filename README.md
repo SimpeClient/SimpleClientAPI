@@ -13,7 +13,7 @@ repositories {
 ```
 ```gradle
 dependencies {
-    modImplementation "simpleclient:simpleclient-api:VERSION"
+    implementation "simpleclient:simpleclient-api:VERSION"
 }
 ```
 
