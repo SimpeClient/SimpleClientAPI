@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'xyz.jpenilla.run-paper' version '2.1.0'
+}
+
+group = 'simpleclient-api'
+version = '0.0.1-dev'
+
+repositories {
+    mavenCentral()
+    maven { url = "https://repo.papermc.io/repository/maven-public/" }
+    maven { url = "https://oss.sonatype.org/content/groups/public/" }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand 'version': version
+    }
+}
+
+tasks {
+    runServer {
+        minecraftVersion '1.20.1'
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release.set 17
+}
