@@ -1,3 +1,5 @@
+[github]: https://img.shields.io/github/v/release/SimpleClientDevelopment/SimpleClientAPI?include_prereleases
+
 # SimpleClientAPI
 
 SimpleClientAPI is the Bukkit/Spigot/Paper API for SimpleClient to enable/disable Legacy PvP.
@@ -8,12 +10,12 @@ SimpleClientAPI is the Bukkit/Spigot/Paper API for SimpleClient to enable/disabl
 ### Gradle
 ```gradle
 repositories {
-    maven { url = 'https://maven.pkg.github.com/SimpleClientDevelopment/SimpleClientAPI' }
+    maven { url = 'https://jitpack.io' }
 }
 ```
 ```gradle
 dependencies {
-    implementation "simpleclient:simpleclient-api:VERSION"
+    implementation "com.github.SimpleClientDevelopment:SimpleClientAPI:VERSION"
 }
 ```
 
@@ -22,14 +24,14 @@ dependencies {
 <repositories>
     <repository>
         <id>simpleclient-api</id>
-        <url>https://maven.pkg.github.com/SimpleClientDevelopment/SimpleClientAPI</url>
+        <url>https://jitpack.io</url>
     </repository>
 </repositories>
 ```
 ```xml
 <dependency>
-    <groupId>simpleclient</groupId>
-    <artifactId>simpleclient-api</artifactId>
+    <groupId>com.github.SimpleClientDevelopment</groupId>
+    <artifactId>SimpleClientAPI</artifactId>
     <version>VERSION</version>
 </dependency>
 ```
