@@ -1,21 +1,19 @@
 plugins {
     id 'java'
     id 'xyz.jpenilla.run-paper' version '2.1.0'
+    id 'io.papermc.paperweight.userdev' version '1.5.3'
     id 'com.github.breadmoirai.github-release' version '2.4.1'
-    id 'maven-publish'
 }
 
 group = 'simpleclient-api'
 version = '0.0.2'
 
 repositories {
-    mavenCentral()
     maven { url = "https://repo.papermc.io/repository/maven-public/" }
-    maven { url = "https://oss.sonatype.org/content/groups/public/" }
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    paperweight.paperDevBundle '1.19.4-R0.1-SNAPSHOT'
 }
 
 processResources {
@@ -26,7 +24,7 @@ processResources {
 
 tasks {
     runServer {
-        minecraftVersion '1.20.1'
+        minecraftVersion '1.19.4'
     }
 }
 
@@ -51,22 +49,4 @@ githubRelease {
     dryRun false
     apiEndpoint 'https://api.github.com'
     client
-}
-
-publishing {
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = 'https://maven.pkg.github.com/SimpleClientDevelopment/SimpleClientAPI'
-            credentials {
-                username = 'FabiPunktExe'
-                password = System.getenv('GITHUB_TOKEN')
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from components.java
-        }
-    }
 }
