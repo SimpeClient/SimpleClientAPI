@@ -6,8 +6,8 @@ plugins {
     id 'com.github.breadmoirai.github-release' version '2.4.1'
 }
 
-group = 'simpleclient-api'
-version = '0.1.2'
+group = 'com.github.SimpleClientDevelopment'
+version = '0.1.3'
 
 repositories {
 }
