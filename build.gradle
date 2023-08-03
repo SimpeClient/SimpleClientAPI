@@ -7,9 +7,10 @@ plugins {
 }
 
 group = 'com.github.SimpleClientDevelopment'
-version = '0.1.5'
+version = '0.1.6'
 
 repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -26,11 +27,6 @@ tasks {
     runServer {
         minecraftVersion '1.19.4'
     }
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -65,3 +61,10 @@ publishing {
         }
     }
 }
+
+wrapper {
+    gradleVersion = '8.1.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+task('install') {}
