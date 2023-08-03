@@ -1,13 +1,12 @@
 plugins {
     id 'java'
-    id 'maven-publish'
     id 'xyz.jpenilla.run-paper' version '2.1.0'
     id 'io.papermc.paperweight.userdev' version '1.5.3'
     id 'com.github.breadmoirai.github-release' version '2.4.1'
 }
 
-group = 'com.github.SimpleClientDevelopment'
-version = '0.1.6'
+group = 'simpleclient'
+version = '0.1.7'
 
 repositories {
     mavenCentral()
@@ -53,18 +52,3 @@ githubRelease {
     apiEndpoint 'https://api.github.com'
     client
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-wrapper {
-    gradleVersion = '8.1.1'
-    distributionType = Wrapper.DistributionType.ALL
-}
-
-task('install') {}
