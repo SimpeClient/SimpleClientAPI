@@ -1,2 +1,2 @@
 ## SimpleClient API %version%
-- Added maven publication
+- Updated gradle project
