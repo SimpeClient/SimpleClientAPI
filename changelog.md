@@ -1,2 +1,2 @@
 ## SimpleClient API %version%
-- Minor improvements
+- Added maven publication

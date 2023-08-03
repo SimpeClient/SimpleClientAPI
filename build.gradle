@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'simpleclient-api'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     maven { url = "https://repo.papermc.io/repository/maven-public/" }
@@ -50,4 +50,12 @@ githubRelease {
     dryRun false
     apiEndpoint 'https://api.github.com'
     client
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
