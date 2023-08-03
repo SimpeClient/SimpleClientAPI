@@ -1,6 +1,6 @@
 name: SimpleClientAPI
-version: '${version}'
+version: ${version}
 main: simpleclient.api.SimpleClientAPIMain
-api-version: 1.20
+api-version: 1.19
 authors: [Fabi.exe]
 description: Server API for SimpleClient

@@ -1,10 +1,6 @@
 package simpleclient.api;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import simpleclient.api.network.NetworkHelper;
 
 import java.util.HashSet;

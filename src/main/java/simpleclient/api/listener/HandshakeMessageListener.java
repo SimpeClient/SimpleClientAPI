@@ -1,12 +1,9 @@
 package simpleclient.api.listener;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 import simpleclient.api.SimpleClientAPI;
-import simpleclient.api.SimpleClientAPIMain;
 
 public class HandshakeMessageListener implements PluginMessageListener {
     @Override
