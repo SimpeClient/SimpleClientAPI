@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'com.github.SimpleClientDevelopment'
-version = '0.1.3'
+version = '0.1.4'
 
 repositories {
 }
@@ -32,6 +32,8 @@ tasks.withType(JavaCompile).configureEach {
     it.options.release.set 17
 }
 
+build.finalizedBy reobfJar
+
 githubRelease {
     token System.getenv('GITHUB_TOKEN') == null ? '' : System.getenv('GITHUB_TOKEN')
     owner 'SimpleClientDevelopment'
@@ -49,12 +51,4 @@ githubRelease {
     dryRun false
     apiEndpoint 'https://api.github.com'
     client
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
 }

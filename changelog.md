@@ -1,2 +1,2 @@
 ## SimpleClient API %version%
-- Updated gradle project #2
+- Updated gradle project #3
